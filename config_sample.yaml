@@ -6,6 +6,7 @@ log:
 application:
     path_minilog: 'PATH_TO_LOG'
     path_log: 'PATH_TO_LOG'
+    name: 'service_name'
 users:
     - ID_USER_TELEGRAM
 username:

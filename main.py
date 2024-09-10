@@ -83,7 +83,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 @restricted
 async def ver_estado(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    result = subprocess.run(['/usr/bin/systemctl', 'status', 'tsuserverCC'], stdout=subprocess.PIPE)
+    result = subprocess.run(['/usr/bin/systemctl', 'status', configuracion['application']['name']], stdout=subprocess.PIPE)
     logging.info("El usuario con id" + str(update.message.chat_id) + "ha visto el estado del servicio")
     await context.bot.send_message(chat_id=update.message.chat_id,
                              text=result.stdout.decode('utf-8'))
@@ -93,23 +93,23 @@ async def ver_estado(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 async def reiniciar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global configuracion
 
-    result = subprocess.run(['/usr/bin/systemctl', 'restart', 'tsuserverCC'], stdout=subprocess.PIPE)
+    result = subprocess.run(['/usr/bin/systemctl', 'restart', configuracion['application']['name']], stdout=subprocess.PIPE)
     logging.info("El usuario con id " + str(update.message.chat_id) + " ha reiniciado el servidor de SAO")
 
     await context.bot.send_message(chat_id=update.message.chat_id,
                              text="Servidor reiniciado con éxito. Resultado:" + result.stdout.decode('utf-8'))
 
-
+@restricted
 async def apagar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global configuracion
 
-    result = subprocess.run(['/usr/bin/systemctl', 'stop', 'tsuserverCC'], stdout=subprocess.PIPE)
+    result = subprocess.run(['/usr/bin/systemctl', 'stop', configuracion['application']['name']], stdout=subprocess.PIPE)
     logging.info("El usuario con id " + str(update.message.chat_id) + " ha apagado el servidor de SAO")
 
     await context.bot.send_message(chat_id=update.message.chat_id,
                              text="Servidor apagado con éxito. Resultado:" + result.stdout.decode('utf-8'))
 
-
+@restricted
 async def log(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global configuracion
 
