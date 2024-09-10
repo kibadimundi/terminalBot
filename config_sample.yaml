@@ -1,0 +1,9 @@
+telegram:
+    token_bot: TOKEN_TELEGRAM
+log:
+    level: warning
+
+users:
+    - ID_USER_TELEGRAM
+username:
+    - NAME_USER
