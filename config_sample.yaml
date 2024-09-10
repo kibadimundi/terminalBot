@@ -2,7 +2,10 @@ telegram:
     token_bot: TOKEN_TELEGRAM
 log:
     level: warning
-
+    path: path_to_log
+application:
+    path_minilog: 'PATH_TO_LOG'
+    path_log: 'PATH_TO_LOG'
 users:
     - ID_USER_TELEGRAM
 username:

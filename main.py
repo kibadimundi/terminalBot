@@ -83,7 +83,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 @restricted
 async def ver_estado(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    global configuracion
     result = subprocess.run(['/usr/bin/systemctl', 'status', 'tsuserverCC'], stdout=subprocess.PIPE)
     logging.info("El usuario con id" + str(update.message.chat_id) + "ha visto el estado del servicio")
     await context.bot.send_message(chat_id=update.message.chat_id,
@@ -114,12 +113,12 @@ async def apagar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def log(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global configuracion
 
-    minilog = open('/home/servidorsao/tsuserverCC/logs/minilog.log', 'w')
-    result = subprocess.Popen(['/usr/bin/tail', '-n', '200', '/home/servidorsao/tsuserverCC/logs/server.log'],
+    minilog = open(configuracion['application']['path_minilog'], 'w')
+    result = subprocess.Popen(['/usr/bin/tail', '-n', '200', configuracion['application']['path_log']],
                               stdout=minilog)
     logging.debug(result.wait())
     minilog.close()
-    fichero = open('/home/servidorsao/tsuserverCC/logs/minilog.log', 'rb')
+    fichero = open(configuracion['application']['path_minilog'], 'rb')
     logging.info("El usuario con id " + str(update.message.chat_id) + " ha revisado el log del servidor de SAO")
     await context.bot.send_message(chat_id=update.message.chat_id,
                              text="Enviando el log con las últimas 200 lineas")
