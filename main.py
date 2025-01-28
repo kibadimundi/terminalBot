@@ -93,7 +93,7 @@ async def ver_estado(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 async def reiniciar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global configuracion
 
-    result = subprocess.run(['/usr/bin/systemctl', 'restart', configuracion['application']['name']], stdout=subprocess.PIPE)
+    result = subprocess.run(['sudo','/usr/bin/systemctl', 'restart', configuracion['application']['name']], stdout=subprocess.PIPE)
     logging.info("El usuario con id " + str(update.message.chat_id) + " ha reiniciado el servidor de SAO")
 
     await context.bot.send_message(chat_id=update.message.chat_id,
@@ -103,7 +103,7 @@ async def reiniciar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def apagar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global configuracion
 
-    result = subprocess.run(['/usr/bin/systemctl', 'stop', configuracion['application']['name']], stdout=subprocess.PIPE)
+    result = subprocess.run(['sudo','/usr/bin/systemctl', 'stop', configuracion['application']['name']], stdout=subprocess.PIPE)
     logging.info("El usuario con id " + str(update.message.chat_id) + " ha apagado el servidor de SAO")
 
     await context.bot.send_message(chat_id=update.message.chat_id,
